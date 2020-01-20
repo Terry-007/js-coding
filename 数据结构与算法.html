@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数据结构与算法</title>
+</head>
+<body>
+	<!-- 队列 -->
+	<script>
+		function Queue(){
+			var items = [];
+			this.enqueue = function(element){ //向队尾添加元素
+				items.push(element);
+			}
+			this.dequeue = function(){ //移除队头元素
+				return items.shift();
+			}
+			this.isEmpty = function(){ //判断队列是否为空
+				return items.length === 0;
+			}
+		}
+
+		// var q = new Queue();
+		// q.enqueue('A');
+		// q.enqueue('B');
+		// q.enqueue('F');
+		// console.log(q.dequeue());
+		// console.log(q.dequeue());
+		// console.log(q.dequeue());
+	</script>
+
+	<!-- 链表 -->
+	<!-- <script type="text/javascript">
+		var dList = null;
+
+		function ListCreate(value, key){//创建链表结构
+			this.value = value;
+			this.pre = null;
+			this.key = key;
+			this.next = null;
+		}
+		function DoubleList(){//对链表进行任何操作
+			this.head = null;
+			this.tail = null;
+			this.length = 0;
+		}
+		DoubleList.prototype.insertNode = function (value,key, position){//添加的任何位置
+			var node = new ListCreate(value, key);
+			var i = 1;
+			var curent = this.head;//从头查询指针
+
+			if (!this.head){
+				this.head = node;
+				this.tail = node;
+				this.length ++;
+				return;
+			}
+
+			if (position <= 1){//加到链首
+				this.head.pre = node;
+				node.next = this.head;
+				node.pre = null;
+				this.head = node;
+				this.length ++;
+				return;
+			}
+
+			if (position >= this.length || position === undefined){//加到链尾
+				this.tail.next = node;
+				node.pre = this.tail;
+				node.next = null;
+				this.tail = node;
+				this.length ++;
+				return;
+			}
+
+			if (position > 1 && position < this.length){//加到链中
+				for (i; i < position - 1; i ++){
+					curent = curent.next;//找到索引前一个节点
+				}
+				// debugger;
+				node.next = curent.next;
+				node.pre = curent.next.pre;
+				curent.next.pre = node;
+				curent.next = node;
+				this.length ++;
+				return;
+			}
+		}
+		DoubleList.prototype.getHead = function(){
+			return this.head;
+		}
+		DoubleList.prototype.isEmpty = function(){
+			if(this.head){
+				return false;
+			}
+			return true;
+		}
+		DoubleList.prototype.deleteNode = function (key){
+			var curent = this.head;//查找并指向要删除的元素
+			while (curent){
+				if(curent.key == key){
+					if (curent == this.head){//元素在头部
+						this.head = curent.next;
+						this.head.pre = null;
+					}else if (curent == this.tail){
+						this.tail = curent.pre;
+						this.tail.next = null;
+					}else{
+						curent.pre.next = curent.next;
+						curent.next.pre = curent.pre;
+					}
+					delete curent;
+					this.length --;
+					return;
+				}
+				curent = curent.next;
+			}
+		}
+		DoubleList.prototype.findAll = function (){
+			var curent = this.head;//遍历
+			var list = [];
+			while (curent){
+				list.push(curent.value);
+				curent = curent.next;
+			}
+			return list;
+		}
+
+		// dList = new DoubleList();
+		// dList.insertNode(1);
+		// dList.insertNode(2);
+		// dList.insertNode(3);
+		// dList.insertNode(4, 4);//bug
+
+		// dList.insertNode(8, 3);
+		// dList.deleteNode(8);
+		// dList.deleteNode(1);
+		// console.log(dList.findAll());
+	</script> -->
+
+
+	<!-- 集合、字典、散列表的练习 -->
+	<!-- <script>
+		
+		function Set(){
+			var items = {};
+		}
+		Set.prototype.has = function(value){
+			//检测集合中是否存在此属性
+			return items.hasOwnProperty(value);
+		}
+		Set.prototype.add = function(value){
+			//添加此元素到集合中
+			if(!this.has(value)){
+				items[value] = value;
+				return true;
+			}
+			return false;
+		}
+		Set.prototype.remove = function(value){
+			if(items.has(value)){
+				delete items[value];
+				return true;
+			}
+			return false;
+		}
+		Set.prototype.clear = function(){
+			items = {};//也可以迭代用delete删除
+		}
+		Set.prototype.size = function(){
+			return Object.keys(items).length;
+		}
+		Set.prototype.values = function(){
+			return Object.keys(items);
+		}
+		Set.prototype.union = function(otherSet){
+			let unionSet = new Set();
+
+			let value = this.values()
+			for(let i=0; i<value.length;i++){
+				unionSet.add(value[i]);
+			}
+
+			value = otherSet.values();
+			for(let i = 0; i<value.length; i++){
+				unionSet.add(value[i]);
+			}
+			return unionSet;
+		}
+		var set = new Set();
+		set.add('a');
+	</script> -->
+
+
+	<!-- 字典 -->
+	<script>
+
+		function Dictionary(){
+		}
+		Dictionary.prototype.has = function(key){
+			return this.hasOwnProperty(key);
+		}
+		Dictionary.prototype.set = function(key, value){
+			this[key] = value;
+		}
+		Dictionary.prototype.delete = function(key){
+			if(this.has(key)){
+				delete items[key];
+				return true;
+			}
+			return false;
+		}
+		Dictionary.prototype.get = function(key){
+			return this.has(key) ? this[key] : undefined;
+		}
+		Dictionary.prototype.values = function(){
+			var values = [];
+			for(var k in this){
+				if(this.has(k)){
+					values.push(this[k]);
+				}
+			}
+			return values;
+		}
+		// var dic = new Dictionary();
+		// dic.set('a', 'a');
+		// dic.set('b', '2');
+		// dic.set('c', 34);
+		// dic.set('d', 'abc');
+		// console.log(dic.values());
+		// console.log(dic.get('b'));
+	</script>
+
+
+	<!-- 散列表  分离链接法-->
+	<!-- <script>
+		function HashTable(){
+			var table = [];
+
+			var loseloseHashTable = function(key){//得到每个输入串的下标号
+				var hash = 0;
+				for(var i = 0; i < key.length; i++){
+					hash += key.charCodeAt(i);
+				}
+				return hash%37;
+			}
+
+			this.put = function(key, value){
+				var position = loseloseHashTable(key);
+
+				if(table[position] === undefined){
+					table[position] = new DoubleList();
+				}
+				table[position].insertNode(value, key);
+			}
+
+			this.get = function(key){
+				var position = loseloseHashTable(key);
+
+				if(table[position] !== undefined){
+					var current = table[position].getHead();
+					while(current.next){
+						if (current.key === key) {
+							return current.value;
+						}
+						current = current.next;
+					}
+
+					if (current.key === key) {
+						return current.value;
+					}
+				}
+
+				return undefined;
+			}
+
+			this.remove = function(key){
+				var position = loseloseHashTable(key);
+
+				if(table[position] !== undefined){
+					var current = table[position].getHead();
+					while(current.next){
+						if (current.key === key) {
+							table[position].deleteNode(key);
+							if(table[position].isEmpty()){
+								table[position] = undefined;
+							}
+							return true;
+						}
+						current = current.next;
+					}
+
+					if (current.key === key) {
+						table[position].deleteNode(key);
+						if(table[position].isEmpty()){
+							table[position] = undefined;
+						}
+						return true;
+					}
+				}
+
+				return false;				
+			}
+		}
+
+		var hash = new HashTable();
+		hash.put('Tyrion', '12');
+		hash.put('Aaron', '34');
+		hash.put('Donnie', '56');
+		hash.put('Ana', '78');
+		// debugger;
+		hash.remove('Tyrion')
+		console.log(hash.get('Tyrion'));
+	</script> -->
+
+
+	<!-- 散列表  线性探查法-->
+	<!-- <script>
+		function HashTable(){
+			var table = [];
+
+			var loseloseHashTable = function(key){//得到每个输入串的下标号
+				var hash = 0;
+				for(var i = 0; i < key.length; i++){
+					hash += key.charCodeAt(i);
+				}
+				return hash%37;
+			}
+
+			var ValuePair = function(key, value){
+				this.key = key;
+				this.value =value;
+			}
+
+			this.put = function(key, value){
+				var position = loseloseHashTable(key);
+
+				if(table[position] == undefined){
+					table[position] = new ValuePair(key, value);
+				}else{
+					var index = ++position;
+					while(table[index] !== undefined){
+						index++;
+					}
+					table[index] = new ValuePair(key, value);
+				}
+			}
+
+			this.get = function(key){
+				var position = loseloseHashTable(key);
+
+				if (table[position] !== undefined) {
+					if(table[position].key === key){
+						return table[position].value;
+					}else{
+						var index = ++position;
+						while(table[index].key !== key){
+							index++;
+						}
+						return table[index].value;
+					}
+				}
+
+				return;
+			}
+
+			this.remove = function(key){
+				var position = loseloseHashTable(key);
+
+				if (table[position] !== undefined) {
+					if(table[position].key === key){
+						table[position] = undefined;
+					}else{
+						var index = ++position;
+						while(table[index].key !== key){
+							index++;
+						}
+						table[position] = undefined;
+					}
+				}
+
+				return;
+			}
+		}
+		var hash = new HashTable();
+		hash.put('Tyrion', '12');
+		hash.put('Aaron', '34');
+		hash.put('Donnie', '56');
+		hash.put('Ana', '78');
+		// debugger;
+		hash.remove('Tyrion')
+		console.log(hash.get('Aaron'));
+	</script> -->
+
+
+	<!-- 二叉搜索树 -->
+	<!-- <script>
+		function BinarySearchTree (){
+			var Node = function(key){//创建树的节点
+				this.key = key;
+				this.left = null;
+				this.right = null;
+			}
+
+			var root = null;
+
+			this.insert = function(key){
+				var newNode = new Node(key);
+
+				if (root === null) {
+					root = newNode;
+				}else{
+					insertNode(root, newNode);//插入到非根节点的其他位置
+				}
+			}
+			var insertNode = function(node, newNode){
+				if (newNode.key < node.key) {
+					if (node.left === null) {
+						node.left = newNode;
+					}else{
+						insertNode(node.left, newNode);//用到递归
+					}
+				}else{
+					if (node.right === null) {
+						node.right = newNode;
+					}else{
+						insertNode(node.right, newNode);
+					}
+				}
+			}
+
+			/* 树的遍历 */
+			// 中序 -- 从小到大顺序访问所有节点（左中右）
+			this.inOrderTraverse = function(printNode){//回调函数 -- 这个函数用来设置遍历后的数用来做什么操作
+				inOrderTraverseNode(root, printNode);
+			}			
+			var inOrderTraverseNode = function(node, printNode){
+				if (node !== null) {
+					inOrderTraverseNode(node.left, printNode);
+					printNode(node.key);
+					inOrderTraverseNode(node.right, printNode);
+				}
+			}
+			//先序 -- 先访问节点本身在访问后代节点（中左右）
+			this.preOrderTraverse = function(printNode){
+				preOrderTraverseNode(root, printNode);
+			}
+			var preOrderTraverseNode = function(node, printNode){
+				if (node !== null) {
+					printNode(node.key);
+					preOrderTraverseNode(node.left, printNode);
+					preOrderTraverseNode(node.right, printNode);
+				}
+			}
+			//后序 -- 先访问后代节点在访问节点本身（左右中）
+			this.posrOrderTraverse = function(printNode){
+				posrOrderTraverseNode(root, printNode);
+			}
+			var posrOrderTraverseNode = function(node, printNode){
+				if (node !== null) {
+					posrOrderTraverseNode(node.left, printNode);
+					posrOrderTraverseNode(node.right, printNode);
+					printNode(node.key);
+				}
+			}
+
+			//搜索最小值 -- 找到最左最下面的节点
+			this.min = function(){
+				return minNode(root);
+			}
+			var minNode = function(node){
+				if(node){
+					while(node.left){
+						node = node.left;
+					}
+					return node.key;
+				}
+				return null;
+			}
+			//搜索最小值 -- 找到最右最下面的节点
+			this.max = function(){
+				return minNode(root);
+			}
+			var maxNode = function(node){
+				if(node){
+					while(node.right){
+						node = node.right;
+					}
+					return node.key;
+				}
+				return null;
+			}
+			// 搜索一个特定的值
+			this.search = function(key){
+				searchNode(root, key);
+			}
+			var searchNode =function(node, key){
+				if(node === null){
+					return undefined;
+				}
+				if (key < node.key) {
+					searchNode(node.left, key);
+				}else if(key > node.key){
+					searchNode(node.right, key);
+				}else{
+					return node.key;
+				}
+			}
+			// 移除一个节点 -- 这块内容相对比较复杂，需多加留意，逻辑很重要
+			this.remove = function(key){
+				root = removeNode(root, key);
+			}
+			var removeNode = function(node, key){
+				if (node === null) {
+					return false;
+				}
+				if (key < node.key) {
+					node.left = removeNode(node.left, key);
+					return node;
+				}else if(key > node.key){
+					node.right = removeNode(node.right, key)
+					return node;
+				}else{//找到节点
+					//第一种情况 -- 一个叶子节点
+					if (node.left === null && node.right ===null) {
+						node = null;
+						return node;
+					}
+
+					//第二种情况 -- 只有一个子节点的节点
+					if (node.left === null) {
+						node = node.right;
+						return node;
+					}else if(node.right === null){
+						node = node.left;
+						return node;
+					}
+
+					//第三种情况 -- 存在左右两边子节点的节点
+					var finMinNode = function(node){
+						while(node && node.left){
+							node = node.left;
+						}
+						return node;
+					}
+					// debugger;
+					var aux = finMinNode(node.right); //找到这个节点‘右’子树中最小的节点
+					node.key = aux.key; //将这个节点代替需要删除的 node 
+					node.right = removeNode(node.right, aux.key); //再一次查找并删除这个最小节点
+					return node;
+				}
+			}
+		}
+
+
+		function printNode(value){
+			console.log(value);
+		}
+		var tree = new BinarySearchTree();
+		tree.insert(11);
+		tree.insert(7);
+		tree.insert(15);
+		tree.insert(5);
+		tree.insert(9);
+		tree.insert(13);
+		tree.insert(20);
+		tree.insert(3);
+		tree.insert(6);
+		tree.insert(8);
+		tree.insert(10);
+		tree.insert(12);
+		tree.insert(14);
+		tree.insert(18);
+		tree.insert(25);
+
+		// debugger;
+		// tree.preOrderTraverse(printNode);
+		// tree.posrOrderTraverse(printNode);
+		
+		// tree.remove(11);
+		// tree.inOrderTraverse(printNode);
+	</script> -->
+
+	<!-- 自平衡树(AVL树) -->
+	<!-- <script>
+		/* 一个节点的左右高度差如果不为 “1”(从根节点开始判断)，则此树需要平衡，所以在每插入一个节点时，就需要判断此树是否需要平衡，自平衡旋转一共有四种情况：RR(向左的单旋转)、LL(向右的单旋转)、LR(向右的双旋转)、RL(向左的双旋转) */
+		function AVLTree(){
+			var Node = function(key){
+				this.key = key;
+				this.left = null;
+				this.right = null;
+			}
+			var root = null;//根节点
+
+			//RR -- 向左的单旋转
+			var rotationRR = function(node){ //node为计算后得出左右子树差值不为1的节点
+				var tmp = node.right;
+				node.right = tmp.left;
+				tmp.left = node;
+				return tmp; //成为新的根节点
+			}
+			//LL -- 向右的单旋转
+			var rotationLL = function(node){
+				var tmp = node.left;
+				node.left = tmp.right;
+				tmp.right = node;
+				return tmp;
+			}
+			//LR -- 向右的双旋转:判断依据了node.left,这就是左了，然后再判断出是在左边的右边，因为这个结构比前面的稍微特殊一点点，所以要旋转两次
+			var rotationLR = function(node){
+				node.left = rotationRR(node.left);
+				return rotationLL(node);
+			}
+			//RL -- 向左的双旋转
+			var rotationRL = function(node){
+				node.right = rotationLL(node.right);
+				return rotationRR(node);
+			}
+			//计算节点的高度 -- 返回左子树和右子树中最大的高度，一次递归即可算出
+			var heightNode = function(node){
+				if(node === null){
+					return -1;
+				}else {
+					return Math.max(heightNode(node.left), heightNode(node.right)) + 1;
+				}
+			}
+			var insertNode = function(node,element){ //依然是递归的思想，把思路捋清楚
+				if(node === null){ //添加这个节点
+					node = new Node(element);
+				}else if(element < node.key){ //element小于node的值，走左边
+					node.left = insertNode(node.left, element);
+
+					//确认是否需要平衡
+					if(node.left !== null){//因为也会出现并没有插入新元素的情况，那么此时就不需要平衡
+						if((heightNode(node.left) - heightNode(node.right)) > 1){ //左边失衡
+							//进一步判断是那种旋转类型
+							if(element < node.left.key){
+								node = rotationLL(node);
+							} else {
+								node = rotationLR(node);
+							}
+						}
+					}
+				}else if(element > node.key){ //element大于node的值，走右边
+					node.right = insertNode(node.right, element);
+
+					//确认是否需要平衡
+					if(node.right !== null){
+						if((heightNode(node.right) - heightNode(node.left)) > 1){ //右边失衡
+							if(element > node.left.key){
+								node = rotationRR(node);
+							} else {
+								node = rotationRL(node);
+							}
+						}
+					}
+				}
+
+				return node;
+			}
+			this.insert = function(element){ //element为要加入的新节点
+				root = insertNode(root, element);
+			}
+			this.preOrderTraverse = function(){ //中序遍历查看结果
+				preOrderTraverseNode(root);
+			}
+			function preOrderTraverseNode(node){
+				if(node === null){
+					return;
+				}
+				preOrderTraverseNode(node.left);
+				console.log(node.key);
+				preOrderTraverseNode(node.right);
+			}
+		}
+
+		var tree = new AVLTree();
+		tree.insert(50);
+		tree.insert(30);
+		tree.insert(70);
+		tree.insert(60);
+		tree.insert(80);
+		// debugger;
+		tree.insert(90);
+		tree.preOrderTraverse();
+	</script> -->
+
+	<!-- 图 -->
+	<script>
+		function Graph(){
+			var verices = []; //储存所有顶点
+			var adjList = new Dictionary(); //用一个字典来储存邻接表 ， 顶点与相邻节点的
+
+			this.addVertex = function(v){ //初始化顶点数组与字典映射
+				verices.push(v); 
+				adjList.set(v, []);
+			}
+			this.addEdge = function(v, w){ //添加边，存入字典各个顶点(相邻节点)映射关系
+				adjList.get(v).push(w);
+				adjList.get(w).push(v);
+			}
+			this.toString = function(){ //用于向控制台输出字典映射表
+				var s = '';
+				for(var i = 0; i < verices.length; i++){
+					s += verices[i] + ' -> ';
+					var neighbors = adjList.get(verices[i]); 
+					for(var j = 0; j < neighbors.length; j++){
+						s += neighbors[j] + ' ';
+					}
+					s += '\n';
+				}
+				return s;
+			}
+
+
+			/**
+			 * 图的遍历 -- 广度优先搜索(BFS)
+			 * 使用 “队列”，将顶点存入队列，先入队列的顶点最先被探索
+			 */
+			/**
+			 * 白色(white)：表示顶点还未被访问
+			 * 灰色(grey)：表示顶点被访问过，但未被探索
+			 * 黑色(black)：表示顶点被访问过且被完全探索
+			 */
+			/**
+			 * BFS设计思想：
+			 *     1.创建一个队列 Q
+			 *     2.将 v(顶点)标注为被发现的(grey)，并将 v 入队列 Q
+			 *     3.如果 Q 非空，则运行以下步骤：
+			 *         a.将 u 从 Q 中出队列
+			 *         b.将 u 标注为被发现的(grey)
+			 *         c.将 u 所有未被访问过的邻点(white)入队列
+			 *         d.将 u 标注为已被探索的(black)
+			 */
+			var initializeColor = function(){ //初始化顶点颜色
+				var color = [];
+				for(var i = 0; i < verices.length; i++){
+					color[verices[i]] = 'white';
+				}
+				return color;
+			}
+			this.bfs = function(v){ // v 作为图的入口顶点
+				 var color = initializeColor(); //初始化
+				 var bfsQueue = new Queue(); //建立一个队列
+				 color[v] = 'grey';
+				 bfsQueue.enqueue(v);
+
+				 while(!bfsQueue.isEmpty()){
+				 	var u = bfsQueue.dequeue();
+				 	// debugger;
+				 	if (color[u] === 'grey') {
+				 		var w = adjList.get(u);
+					 	for(var i = 0; i < w.length; i++){
+					 		if(color[w[i]] === 'white'){
+					 			color[w[i]] = 'grey';
+					 			bfsQueue.enqueue(w[i]);
+					 		}
+					 	}
+					 	color[u] = 'black';
+				 	}
+				 	// debugger;
+				 	if(color[u] === 'black'){
+				 		console.log(u);
+				 	}
+				 }
+			}
+
+
+			/**
+			 * 图的遍历 -- 深度优先搜索(DFS)
+			 * 使用 “栈”，通过将顶点存入栈中，顶点是沿着路径被探索的，存在新的相邻顶点就去访问
+			 */
+			
+		}
+
+		var graph = new Graph();
+		var myVertices = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+		for(var i = 0; i < myVertices.length; i++){
+			graph.addVertex(myVertices[i]);
+		}
+		graph.addEdge('A', 'B');
+		graph.addEdge('A', 'C');
+		graph.addEdge('A', 'D');
+		graph.addEdge('C', 'D');
+		graph.addEdge('C', 'G');
+		graph.addEdge('D', 'G');
+		graph.addEdge('D', 'H');
+		graph.addEdge('B', 'E');
+		graph.addEdge('B', 'F');
+		graph.addEdge('E', 'I');
+
+		graph.bfs('A');
+	</script>
+
+	<!-- 算法 -->
+
+
+	<!-- 排序算法 -->
+	<!-- <script>
+		function ArraList(){
+			var array = [];
+
+			this.insert = function(item){//添加
+				array.push(item);
+			}
+
+			this.toString = function(){//输出
+				return array.join();
+			}
+			//交换两个数的位置
+			var swap = function(array, index1, index2){ //array为数组，index为索引号
+				var aux = array[index1];
+				array[index1] = array[index2];
+				array[index2] = aux;
+			}
+			//冒泡排序 -- 保证后面都是最大的
+			//从第一个开始，逐个与相邻的元素进行比较，将最大的数，冒泡到最右边
+			this.modifiedBubbleSort = function(){
+				var len = array.length;
+
+				for(var i = 0; i < len; i++){
+					for(var j = 0; j < len - 1 - i; j++){
+						if(array[j] > array[j + 1]){
+							swap(array, j, j + 1);
+						}
+					}
+				}
+			}
+			//选择排序 -- 保证最前面的是最小的
+			//假选第一个为最小，从剩余的后面中挑出一个最小的与它作比较，并判断是否交换，保证最左边是最小的，然后以此类推遍历
+			this.selectionSort = function(){
+				var len = array.length, arrayMin;
+
+				for(var i = 0; i < len - 1; i++){
+					arrayMin = i;//预先假设前面某一个位置是最小的，用此来作后续判断
+					for(var j = i; j < len; j++){
+						if(array[j] < array[arrayMin]){
+							arrayMin = j;
+						}
+					}
+					if(arrayMin !== i){
+						swap(array, arrayMin, i);
+					}
+				}
+
+			}
+			//插入排序 -- 每走一步就将此数摘出来，与前面一个数进行比较，若比较小，则对前面的数进行移位，并将摘出来的数插入到合适的位置，保证前面的数是有序的
+			this.insertionSort = function(){
+				var len = array.length, j, temp;//j记录索引值，temp记录值
+				for(var i = 1; i < len; i++){
+					j = i;
+					temp = array[i];
+					while(array[j - 1] > temp && j > 0){//j这个位置是要判断是否可以插入，当j == 0时，也就是说前面再不可能有比自己小的了，那么可以放心插入；当j的前面比自己还小的时候，那么j也是合适的插入位置
+						array[j] = array[j - 1];
+						j--;
+					}
+					array[j] = temp;
+				}
+			}
+			//归并排序 (递归) -- 将一个大数组不断地二分为两个数组，直至最后两个数组只有一个数为止
+			this.mergeSort = function(){
+				array = mergeSortRec(array);
+			}
+			var mergeSortRec = function(array){//划分数组
+				var length = array.length;
+				if(length === 1){
+					return array;
+				}
+				var mid = Math.floor(length / 2),
+					left = array.slice(0, mid),
+					right = array.slice(mid, length);
+
+				return merge(mergeSortRec(left), mergeSortRec(right));
+				//使用递归不断地划分，并且再最后返回给函数排好顺序的两个数组，再返回给上一层在进行排序
+			}
+			var merge = function(left, right){
+				var result = [],//存放的是两个经过排好序的合并一起的数组
+					il = 0,//记录左边小数组
+					ir = 0;//记录右边小数组
+
+				while(il < left.length && ir < right.length){//意味着两边数组都还有数没有比较处理并压入result中
+					if(left[il] < right[ir]){
+						result.push(left[il++]);
+					}else{
+						result.push(right[ir++]);
+					}
+				}
+				while(il < left.length){//左右都已经比较完了，但是左边还剩有数，但注意这个数都是有序的，那么只需要遍历压入栈即可
+					result.push(left[il++]);
+				}
+				while(ir < right.length){//与上同理
+					result.push(right[ir++]);
+				}
+
+				return result;
+			}
+			//快速排序 -- 与归并排序一样采用分治的方法，原理其实也类似但是没有明显的划分成小数组罢了，但容易混淆
+			//其实就是从一个数组中任意选择一个数ele，这个数是谁多大并不重要。重要的是，我们要以它为根据，将数组划分为两个，左边是比这个数小的“小”数组，右边是比这个数“大”的小数组。而且这个过程中ele也有可能被交换到任意一方，所以这个数组整的看就被划分成了两个数组，右边的数全部都比左边的大。然后继续分别在两个小数组中进行这种无形的划分（递归），那么到最后，这个数组就自然会变得有序了。
+			this.quickSort = function(){
+				quick(array, 0, array.length - 1); //因为要排序的是整个数组
+			}
+			var quick = function(array, left, right){ //将数组不断的划分为更小的数组
+				var index;
+				if(array.length > 1){
+					//index变量会辅助我们将数组或者子数组划分为更小的数组，而在返回变量来看，接受的是“i”，这是因为“j”，是递减的，使用它可能会造成溢出。
+					index = partition(array, left, right); 
+
+					if(left< index - 1){ 
+					//因为在partition中比较时，i指向超过的j才会退出，但实际上i之前的数才是属于左边数组的，所以要“index - 1”
+						quick(array, left, index - 1);
+					}
+					if(index < right){
+						quick(array, index, right);
+					}
+				}
+			}
+			var partition = function(array, left, right){ //将数组无形的划分为两部分，并返回分界值“i”
+				var pivot = array[Math.floor((right + left) / 2)],
+					i = left,
+					j = right;
+				while(i <= j){
+					while(array[i] < pivot){//‘i’要找到左边数组较大值，或者找到其本身
+						i++;
+					}
+					while(array[j] > pivot){//‘j’要找到右边数组较小值，或者找到其本身
+						j--;
+					}
+					if(i <= j){
+						swap(array, i, j);//交换数值
+						i++;
+						j--;
+					}
+				}
+				return i;
+			}
+			//堆排序 -- 将数组当作二叉树的形式来排序，因为这样的结构，可以满足我们的算法
+			//索引是‘0’的为根节点，对于“二叉树”来说（其实我们只是把它当作二叉树来对待，它的结构其实还是数组），任何一个节点n（这里n为其索引），它的左子节点为‘2n+1’，它的右子节点为‘2n+2’，此时画一个图更为形象。ok，到这里初步结构就构思好了
+			/*算法原理：1.将这个树变成“最大堆”或者“最小堆”，本例中是构造“最大堆”，就是任何一个节点都要比他的左右子节点的数要大。
+			         2.所以处于顶端的数是最大的，那么就交换顶端的数与最后一个数，这样最大的数就会出现在数组位置的最后，即这个数已经拍好了序，那么下次在交换排序的时候，要除开这个数，如此往复，既可以排序成功。
+			         3.要注意一点，当我把最大数交换后，处在最顶端的数可就不一定是最大的，那么就要重新调整这个堆，让它重新恢复最大堆的样子。
+			*/
+			var heapify = function(array, heapSize, i){
+				//其实每一次比的都是三个数，元素本身和它的左右
+				var left = i * 2 + 1,
+					right = i * 2 + 2,
+					largest = i; //此值记录的就是三个数中最大的数，初始化它指向根（本身）
+				//比较的过程
+				if(left < heapSize && array[left] > array[largest]){
+					largest = left;
+				}
+				if(right < heapSize && array[right] > array[largest]){
+					largest = right;
+				}
+				//两个值不相等说明，最大数不是根，故需要交换，使得最大值在根部（小子树的根部）
+				if(largest !== i){
+					swap(array, i, largest); //因为交换此时的largest可等于之前的i
+					heapify(array, heapSize, largest); //为了保证还是最大堆的性质，那么被交换下来的数，我们还要往下判断他的位置是否合适
+				}
+			}
+			var buildHeap = function(array){
+				var heapSize = array.length;
+				for(var i = Math.floor(heapSize / 2); i >= 0; i--){ //先从底部开始，那么就可以将最大数一步步交换到上面，机智的办法
+					heapify(array, heapSize, i);
+				}
+			}
+			this.heapSort = function(){
+				//记录这个值因为要通过它的递减，那么后续再操作的时候就不会动已经排好序的元素了
+				var heapSize = array.length; 
+				buildHeap(array); //初步建立一个最大堆
+
+				while(heapSize > 1){ //说明数组还有未排序的
+					heapSize--;
+					swap(array, 0, heapSize); //交换堆顶和最后一个树，那么此时最后一个数就被排序了
+					heapify(array, heapSize, 0); //因为交换所以会导致最大堆失衡，那么和刚才一样，重新调整这个堆
+				}
+
+			}
+		}
+		
+
+		var arr = new ArraList();
+		arr.insert(1);
+		arr.insert(5);
+		arr.insert(8);
+		arr.insert(0);
+		arr.insert(2);
+		arr.insert(9);
+		arr.insert(7);
+
+		// debugger;
+		arr.heapSort();
+		console.log(arr.toString());
+
+	</script> -->
+
+
+</body>
+</html>
